@@ -24,14 +24,17 @@ module.exports = {
         ]
       });
 
-      const formatted = result.map(order => ({
-        ...order.toJSON(),
-        statusDescription: statusList[order.orderStatusBuyer]
-      }));
-
+      const formatted = result.map(order => {
+        const obj = typeof order.toJSON === 'function' ? order.toJSON() : order;
+        return {
+          ...obj,
+          statusDescription: statusList[Number(obj.orderStatusBuyer)]
+        };
+      });
+      
       return res.json(formatted);
     } catch (err) {
-      console.error(err);
+      console.log('[OrderController] Erro ao buscar pedidos:', err?.message || err);
       return res.status(500).json({ error: 'Erro ao buscar pedidos' });
     }
   }
