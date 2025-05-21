@@ -2,7 +2,8 @@
   <aside
     class="w-60 h-full bg-white relative"
   >
-    <div class="absolute top-0 right-0 w-[24px] h-full bg-transparent z-0" style="box-shadow: -5px 0 20px rgba(0, 0, 0, 0.06);"></div>
+    <div class="absolute top-0 -right-[0px] w-[24px] h-full bg-transparent z-0" style="box-shadow: 5px 0 20px rgba(0, 0, 0, 0.06);" ></div>
+
 
     <div class="px-6 py-4 relative z-20">
       <img src="/Logo.svg" alt="Cashforce Logo" class="h-6 mb-6" />

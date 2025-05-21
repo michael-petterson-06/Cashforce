@@ -9,7 +9,7 @@
         <div class="h-[1px] w-full" style="background-color: #DFE2EB;"></div>
       </div>
 
-      <div class="pl-6 pr-8 pt-[32px]">
+      <div class="pl-16 pr-8 pt-[40px]">
         <div class="flex items-center gap-2 mb-1">
           <img src="/Vector-2.svg" alt="Ícone Notas" class="w-5 h-5" />
           <h1 class="text-2xl font-bold text-gray-800">Notas fiscais</h1>
