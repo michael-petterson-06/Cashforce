@@ -5,6 +5,9 @@
 
     <main class="flex-1 bg-white">
 
+      <div class="block md:hidden px-6 pt-6">
+        <img src="/Logo.svg" alt="Cashforce Logo" class="h-6 mb-4" />
+      </div>
       <div class="pt-16">
         <div class="h-[1px] w-full" style="background-color: #DFE2EB;"></div>
       </div>
