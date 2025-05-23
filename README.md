@@ -117,15 +117,15 @@ http://localhost:3000/api-docs
 
 ### 💻 Desktop
 
-![Desktop](./src/assets/front-1.png)
+![Desktop](/frontend/src/assets/front-1.png)
 
 ### 📱 Tablet
 
-![Tablet](./src/assets/front-2.png)
+![Tablet](/frontend/src/assets/front-2.png)
 
 ### 📱 Mobile
 
-![Mobile](./src/assets/front-3.png)
+![Mobile](/frontend/src/assets/front-3.png)
 
 ---
 
