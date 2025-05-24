@@ -46,17 +46,22 @@
 </template>
 
 <script>
-import Sidebar from '../components/Sidebar.vue';
-import OrderRow from '../components/OrderRow.vue';
-import { getOrders } from '../services/orderService';
 
-export default {
-  components: { Sidebar, OrderRow },
-  data() {
-    return { orders: [] };
-  },
-  async mounted() {
-    this.orders = await getOrders();
-  },
-};
+  import Sidebar from '../components/Sidebar.vue';
+  import OrderRow from '../components/OrderRow.vue';
+  import { getOrders } from '../services/orderService';
+
+  export default {
+    
+    components: { Sidebar, OrderRow },
+    
+    data() {
+      return { orders: [] };
+    },
+    
+    async mounted() {
+      this.orders = await getOrders();
+    },
+
+  };
 </script>

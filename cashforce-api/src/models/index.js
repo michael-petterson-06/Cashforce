@@ -24,7 +24,6 @@ const initModels = require('./init-models');
 const models = initModels(sequelize);
 Object.assign(db, models);
 
-db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;

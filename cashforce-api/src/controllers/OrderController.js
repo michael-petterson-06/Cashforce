@@ -25,7 +25,9 @@ module.exports = {
       });
 
       const formatted = result.map(order => {
+        
         const obj = typeof order.toJSON === 'function' ? order.toJSON() : order;
+        
         return {
           ...obj,
           statusDescription: statusList[Number(obj.orderStatusBuyer)]
