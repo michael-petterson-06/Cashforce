@@ -1,3 +1,4 @@
+require('dotenv').config();
 // module.exports = {
 //   development: {
 //     username: process.env.DB_USER,
@@ -24,12 +25,11 @@
 //     dialect: 'mysql'
 //   }
 // };
-
 module.exports = {
-  username: process.env.DB_USER || 'ERRO_USER',
-  password: process.env.DB_PASSWORD || 'ERRO_PASS',
-  database: process.env.DB_NAME || 'ERRO_DB',
-  host: process.env.DB_HOST || 'ERRO_HOST',
+  username: process.env.DB_USER || 'fallback_user',
+  password: process.env.DB_PASSWORD || 'fallback_pass',
+  database: process.env.DB_NAME || 'fallback_db',
+  host: process.env.DB_HOST || 'fallback_host',
   port: process.env.DB_PORT || 3306,
   dialect: 'mysql',
   logging: false

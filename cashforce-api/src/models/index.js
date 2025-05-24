@@ -1,3 +1,4 @@
+require('dotenv').config();
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -5,10 +6,11 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-console.log('.env: ', env)
-// const config = require(path.resolve(__dirname, '..', 'config', 'config.js'))[env];
-const config = require(path.resolve(__dirname, '..', 'config', 'config.js'));
 
+// const config = require(path.resolve(__dirname, '..', 'config', 'config.js'))[env];
+// const config = require(path.resolve(__dirname, '..', 'config', 'config.js'));
+
+const config = require('../config/config.js');
 const db = {};
 
 let sequelize;
