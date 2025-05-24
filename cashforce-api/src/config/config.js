@@ -30,7 +30,7 @@ module.exports = {
   password: process.env.DB_PASSWORD || 'fallback_pass',
   database: process.env.DB_NAME || 'fallback_db',
   host: process.env.DB_HOST || 'fallback_host',
-  port: process.env.DB_PORT || 3306,
+  port: process.env.DB_PORT,
   dialect: 'mysql',
   logging: false
 };
