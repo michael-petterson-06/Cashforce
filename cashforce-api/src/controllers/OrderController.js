@@ -23,7 +23,7 @@ module.exports = {
       database: process.env.DB_NAME,
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      nodeEnv: process.env.DB_NODE_ENV ,
+      nodeEnv: process.env.NODE_ENV ,
     });
     
     
