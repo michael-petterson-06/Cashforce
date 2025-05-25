@@ -11,11 +11,81 @@ paths:
       responses:
         200:
           description: Lista de usuários retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    phoneNumber:
+                      type: string
+                    mobile:
+                      type: string
+                    departament:
+                      type: string
 
     post:
       tags:
         - Usuários
       summary: Cria um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phoneNumber:
+                  type: string
+                mobile:
+                  type: string
+                departament:
+                  type: string
+      responses:
+        201:
+          description: Usuário criado com sucesso
+
+  /users/{id}:
+    get:
+      tags:
+        - Usuários
+      summary: Busca um usuário pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Usuário encontrado com sucesso
+        404:
+          description: Usuário não encontrado
+
+    patch:
+      tags:
+        - Usuários
+      summary: Atualiza parcialmente os dados de um usuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       requestBody:
         required: true
         content:
@@ -34,5 +104,24 @@ paths:
                 departament:
                   type: string
       responses:
-        201:
-          description: Usuário criado com sucesso
+        200:
+          description: Usuário atualizado com sucesso
+        404:
+          description: Usuário não encontrado
+
+    delete:
+      tags:
+        - Usuários
+      summary: Remove um usuário existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Usuário excluído com sucesso
+        404:
+          description: Usuário não encontrado
+      
