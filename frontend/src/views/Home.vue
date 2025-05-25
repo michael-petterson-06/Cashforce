@@ -90,10 +90,10 @@ export default {
       this.loading = false;
     },
     formatCurrency(value) {
-      return Number(value || 0).toLocaleString('pt-BR', {
+      return `R$ ${Number(value || 0).toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      });
+      })}`;
     },
     formatDate(date) {
       const d = new Date(date);
@@ -104,7 +104,7 @@ export default {
         return [
           { label: 'ID', value: item.id },
           { label: 'Nome', value: item.name },
-          { label: 'Email', value: item.email || '-'  },
+          { label: 'Email', value: item.email || '-', class: 'text-brand-green'  },
           { label: 'Telefone', value: item.phoneNumber || '-' },
           { label: 'Celular', value: item.mobile || '-' },
           { label: 'Departamento', value: item.departament || '-' },
@@ -115,7 +115,7 @@ export default {
         { label: 'Sacado', value: item.buyer?.name },
         { label: 'Cedente', value: item.provider?.name },
         { label: 'Emissão', value: item.emissionDate, format: this.formatDate },
-        { label: 'Valor', value: item.value, format: this.formatCurrency },
+        { label: 'Valor', value: item.value, format: this.formatCurrency, class: 'text-brand-green' },
         // { label: 'Status', value: item.statusDescription },
       ];
     },

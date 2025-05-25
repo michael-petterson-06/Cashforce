@@ -5,4 +5,8 @@ async function findAllUsers() {
   return allUsers;
 }
 
-module.exports = { findAllUsers };
+async function createUser(data) {
+    return await users.create(data);
+  }
+
+  module.exports = { findAllUsers, createUser };

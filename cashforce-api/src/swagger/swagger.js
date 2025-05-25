@@ -1,5 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
 
 const options = {
   definition: {
@@ -10,7 +11,7 @@ const options = {
       description: 'Documentação da API do desafio Cashforce',
     },
   },
-  apis: ['./src/routes/*.js'],
+  apis: [path.join(__dirname, '../docs/*.yaml')],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

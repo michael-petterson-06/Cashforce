@@ -15,4 +15,34 @@ const router = express.Router();
  */
 router.get('/users', UserController.findAll);
 
+
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Cria um novo usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phoneNumber:
+ *                 type: string
+ *               mobile:
+ *                 type: string
+ *               departament:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuário criado com sucesso
+ */
+router.post('/users', UserController.create);
+
+
 module.exports = router;

@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const orderRoutes = require('./routes/order.routes');
 const userRoutes = require('./routes/user.routes');
-const setupSwagger = require('./swagger');
+const setupSwagger = require('./swagger/swagger');
 
 const app = express();
 

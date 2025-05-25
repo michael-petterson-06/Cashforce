@@ -30,7 +30,7 @@ describe('Home.vue', () => {
         stubs: ['router-link'],
         mocks: {
           $route: {
-            name: 'Home', // ou 'Users' para testar usuários
+            name: 'Home',
           },
         },
       },
@@ -47,7 +47,7 @@ describe('Home.vue', () => {
     expect(wrapper.text()).toContain('SACADO 001');
     expect(wrapper.text()).toContain('CEDENTE 001');
     expect(wrapper.text()).toContain('10/05/2024');
-    expect(wrapper.text()).toContain('123.456,78');
+    expect(wrapper.text()).toContain('R$ 123.456,78');
     expect(wrapper.text()).toContain('Pedido confirmado');
     expect(wrapper.text()).toContain('Dados do cedente');
   });

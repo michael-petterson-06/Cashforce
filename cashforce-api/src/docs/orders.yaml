@@ -1,0 +1,13 @@
+tags:
+  - name: Pedidos
+    description: Operações relacionadas aos pedidos
+
+paths:
+  /orders:
+    get:
+      tags:
+        - Pedidos
+      summary: Lista todos os pedidos
+      responses:
+        200:
+          description: Lista de pedidos retornada com sucesso
