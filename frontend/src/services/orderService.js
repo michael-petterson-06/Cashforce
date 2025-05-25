@@ -1,11 +1,7 @@
-import axios from 'axios';
-
-// const API_URL = 'http://localhost:3000';
-
-const API_URL = 'https://cashforce-production.up.railway.app';
-
+import { api } from './api';
 
 export async function getOrders() {
-  const response = await axios.get(`${API_URL}/orders`);
+  const response = await api.get('/orders');
+  console.log('orders: ', response)
   return response.data;
 }

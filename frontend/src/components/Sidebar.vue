@@ -11,10 +11,24 @@
               to="/"
               class="flex items-center relative pl-4 py-2 text-brand-green font-semibold"
               active-class="sidebar-active"
+              v-slot="{ isActive }"
             >
-              <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] h-12 bg-brand-green rounded-r-full"></div>
+              <div v-if="isActive" class="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] h-12 bg-brand-green rounded-r-full"></div>
               <img src="/Vector.svg" alt="Ícone Notas" class="w-5 h-5 mr-2" />
               Notas fiscais
+            </router-link>
+          </li>
+
+          <li class="mt-4">
+            <router-link
+              to="/usuarios"
+              class="flex items-center relative pl-4 py-2 text-brand-green font-semibold"
+              active-class="sidebar-active"
+              v-slot="{ isActive }"
+            >
+              <div v-if="isActive" class="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] h-12 bg-brand-green rounded-r-full"></div>
+              <img src="/Vector.svg" alt="Ícone Usuários" class="w-5 h-5 mr-2" />
+              Usuários
             </router-link>
           </li>
         </ul>
