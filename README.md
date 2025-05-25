@@ -1,6 +1,14 @@
+
 # 💸 Cashforce Challenge
 
 Este projeto é uma aplicação fullstack desenvolvida como parte de um desafio técnico. A proposta consiste em consumir uma base de dados com informações de pedidos (notas fiscais) e exibi-los de forma organizada e responsiva na interface.
+
+---
+
+## 🌐 Deploy Online
+
+- 🔗 **Frontend**: [https://cashforce.vercel.app/](https://cashforce.vercel.app/)
+- 🔗 **Backend (API)**: [https://cashforce-production.up.railway.app](https://cashforce-production.up.railway.app)
 
 ---
 
@@ -33,32 +41,15 @@ Este projeto é uma aplicação fullstack desenvolvida como parte de um desafio 
 
 ---
 
-## 🚀 Tecnologias utilizadas
-
-| Tecnologia       | Descrição                                  |
-| ---------------- | ------------------------------------------ |
-| **Node.js**      | Plataforma backend                         |
-| **Express**      | Framework para APIs                        |
-| **Sequelize**    | ORM para banco de dados MySQL              |
-| **Swagger**      | Documentação da API                        |
-| **Jest**         | Testes backend                             |
-| **Vue 3**        | Framework frontend                         |
-| **Vite**         | Ferramenta de build                        |
-| **Tailwind CSS** | Estilização moderna                        |
-| **Vitest**       | Testes unitários frontend                  |
-| **Vue Test Utils** | Testes de componentes Vue                |
-| **jsdom**        | Ambiente simulado de DOM                   |
-
----
-
 ## 🛠️ Como rodar o projeto localmente
 
-### 1. Clone os repositórios
+### 1. Clone o repositório
 
 ```bash
 git clone https://github.com/michael-petterson-06/Cashforce.git
-
 ```
+
+---
 
 ### 2. Inicie o backend
 
@@ -70,6 +61,8 @@ yarn dev
 
 A API estará disponível em `http://localhost:3000`.
 
+---
+
 ### 3. Inicie o frontend
 
 ```bash
@@ -79,6 +72,28 @@ yarn dev
 ```
 
 A aplicação estará disponível em `http://localhost:5173`.
+
+---
+
+### ℹ️ Dica para o Recrutador
+
+Caso deseje rodar o projeto localmente, lembre-se de alternar entre o backend local e remoto no seguinte arquivo do Frontend:
+
+```js
+// src/services/orderService.js
+```
+
+#### 🔁 Troque esta linha:
+```js
+const API_URL = 'https://cashforce-production.up.railway.app';
+```
+
+#### ✅ Por esta:
+```js
+const API_URL = 'http://localhost:3000';
+```
+
+![Deploy](./frontend/src/assets/deploy.png)
 
 ---
 
@@ -105,13 +120,17 @@ yarn test:unit2 # com coverage
 
 ---
 
-### Swegger
+## 📄 Swagger
 
-```bash
-http://localhost:3000/api-docs
+A documentação da API está disponível em:
 
 ```
+http://localhost:3000/api-docs
 
+https://cashforce-production.up.railway.app/api-docs/
+```
+
+---
 
 ## 🖼️ Imagens
 
@@ -148,4 +167,4 @@ Desenvolvido por **Michael Petterson**
 ## 📃 Licença
 
 Este projeto está sob a licença **MIT**.  
-Desenvolvido para o desafio técnico da empresa **Cashforce**.
+Desenvolvido para o desafio técnico da empresa **Cashforce**

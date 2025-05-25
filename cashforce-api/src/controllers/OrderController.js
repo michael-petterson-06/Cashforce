@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const {
   orders,
   buyers,
@@ -16,16 +14,6 @@ const statusList = [
 
 module.exports = {
   async findAll(req, res) {
-
-    console.log('[DEBUG] Variáveis de conexão:', {
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      nodeEnv: process.env.NODE_ENV ,
-    });
-    
     
     try {
       const result = await orders.findAll({
