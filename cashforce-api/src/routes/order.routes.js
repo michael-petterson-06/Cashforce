@@ -12,5 +12,6 @@ const OrderController = require('../controllers/OrderController');
  *         description: Lista de pedidos retornada com sucesso
  */
 router.get('/orders', OrderController.findAll);
+router.get('/orders/:id', OrderController.findOne);
 
 module.exports = router;

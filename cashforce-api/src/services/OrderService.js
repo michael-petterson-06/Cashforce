@@ -30,6 +30,18 @@ const {
       };
     });
   }
+
+  async function findOrderById(id) {
+    const order = await orders.findByPk(id, {
+      include: [
+        { model: providers, as: 'provider' },
+        { model: buyers, as: 'buyer' },
+        { model: users, as: 'user' },
+        { model: cnpjs, as: 'cnpj' },
+      ]
+    });
+    return order;
+  }
   
-  module.exports = { findAllOrders };
+  module.exports = { findAllOrders, findOrderById };
   

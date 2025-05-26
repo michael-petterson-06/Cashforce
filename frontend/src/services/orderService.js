@@ -2,6 +2,11 @@ import { api } from './api';
 
 export async function getOrders() {
   const response = await api.get('/orders');
-  console.log('orders: ', response)
+   return response.data;
+}
+
+export async function getOrderById(id) {
+  const response = await api.get(`/orders/${id}`);
+  console.log('response: ', response)
   return response.data;
 }

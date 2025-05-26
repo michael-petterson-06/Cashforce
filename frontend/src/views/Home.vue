@@ -124,6 +124,7 @@ export default {
         return {
           status: item.statusDescription,
           buttonLabel: 'Dados do cedente',
+          onClick: () => this.$router.push(`/cedente/${item.id}`)
         };
       }
     },

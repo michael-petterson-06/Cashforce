@@ -11,3 +11,20 @@ paths:
       responses:
         200:
           description: Lista de pedidos retornada com sucesso
+
+  /orders/{id}:
+    get:
+      tags:
+        - Pedidos
+      summary: Retorna os dados completos de um pedido por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Pedido encontrado com sucesso
+        404:
+          description: Pedido não encontrado

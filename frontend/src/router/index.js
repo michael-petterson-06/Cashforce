@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
+import  TransferorDetails from '../views/ TransferorDetails.vue';
 
 const routes = [
   {
@@ -12,6 +13,9 @@ const routes = [
     name: 'Users',
     component: Home,
   },
+  { path: '/cedente/:id',
+    name: ' TransferorDetails',
+    component:  TransferorDetails },
 ];
 
 const router = createRouter({

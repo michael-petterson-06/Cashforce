@@ -25,9 +25,11 @@
       </span>
       <button
         class="whitespace-nowrap px-4 py-2 border border-blue-200 rounded-full text-xs font-medium text-gray-700 hover:bg-blue-50"
+        @click="actions.onClick"
       >
         {{ actions.buttonLabel }}
-      </button>
+    </button>
+
     </div>
   </div>
 </template>
