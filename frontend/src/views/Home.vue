@@ -9,7 +9,7 @@
         <div class="h-[1px] w-full" style="background-color: #DFE2EB;"></div>
       </div>
 
-      <div class="px-4 md:px-16 pt-[40px]">
+      <div class="px-4 md:px-16 pt-[42px]">
         <div class="flex items-center gap-2 mb-1">
           <img src="/Vector-2.svg" alt="Ícone" class="w-5 h-5" />
           <h1 class="text-2xl font-bold text-gray-800">
@@ -17,18 +17,23 @@
           </h1>
         </div>
 
-        <p class="text-gray-500 mb-6">
-          {{ isUserRoute ? 'Visualize os usuários cadastrados.' : 'Visualize as notas fiscais que você tem.' }}
-        </p>
-
-        <div class="bg-white shadow rounded-lg overflow-x-auto">
+         <div class="bg-white shadow rounded-lg overflow-x-auto">
           <div
             class="hidden lg:grid px-6 py-3 text-xs font-bold uppercase"
             :class="isUserRoute ? 'grid-cols-7' : 'grid-cols-6'"
             style="color: #A1A8B8;"
           >
             <div v-for="(header, i) in tableHeaders" :key="i">{{ header }}</div>
-            <div v-if="isUserRoute">Ações</div>
+            <div v-if="isUserRoute" class="flex items-center justify-between -mt-[8px]">
+              <span>Ações</span>
+              <button
+                class="px-3 py-2 text-xs font-medium text-white bg-brand-green rounded-full hover:bg-emerald-700 transition"
+                @click="handleOpenUserForm"
+              >
+                Cadastrar Usuário
+              </button>
+           </div>
+
           </div>
 
           <div class="space-y-3 mt-4" v-if="!loading">
@@ -60,6 +65,11 @@
       @confirm="confirmDelete"
       @cancel="showConfirmDelete = false"
     />
+    <UserFormModal
+      v-if="showUserFormModal"
+      @close="showUserFormModal = false"
+      @submit="handleSubmitUserForm"
+    />
   </div>
 </template>
 
@@ -67,13 +77,16 @@
 import Sidebar from '../components/Sidebar.vue';
 import BaseRow from '../components/BaseRow.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
-import ConfirmDelete from '@/components/ConfirmDelete.vue';
-import MoreActions from '@/components/MoreActions.vue';
+import UserFormModal from '../components/UserFormModal.vue';
+import MoreActions from '../components/MoreActions.vue';
+import ConfirmDelete from '../components/ConfirmDelete.vue';
 import { getOrders } from '../services/orderService';
-import { getUsers, deleteUser } from '../services/userService';
+import { getUsers, deleteUser, createUser } from '../services/userService';
+import { useToast } from 'vue-toastification';
+
 
 export default {
-  components: { Sidebar, BaseRow, LoadingSpinner, MoreActions, ConfirmDelete },
+  components: { Sidebar, BaseRow, LoadingSpinner, MoreActions, ConfirmDelete, UserFormModal, UserFormModal, },
   data() {
     return {
       items: [],
@@ -81,6 +94,7 @@ export default {
       showMoreActions: false,
       showConfirmDelete: false,
       selectedItem: null,
+      showUserFormModal: false,
     };
   },
   computed: {
@@ -103,6 +117,10 @@ export default {
         this.loadData();
       },
     },
+  },
+  setup() {
+    const toast = useToast();
+    return { toast };
   },
   methods: {
     async loadData() {
@@ -165,13 +183,29 @@ export default {
       try {
         await deleteUser(this.selectedItemId);
         this.items = await getUsers();
+        this.toast.success('Usuário deletado com sucesso!');
       } catch (err) {
-        console.error('Erro ao deletar usuário:', err);
+        const mensagem = err?.response?.data?.message || 'Erro ao deletar usuário';
+        this.toast.error(mensagem);
       } finally {
         this.showConfirmDelete = false;
       }
-    }
- },
-
+    },
+    handleOpenUserForm() {
+      this.showUserFormModal = true;
+    },
+    async handleSubmitUserForm(formData) {
+      try {
+        await createUser(formData);
+        this.showUserFormModal = false;
+        this.items = await getUsers();
+        this.toast.success('Usuário cadastrado com sucesso!');
+      } catch (err) {
+        const mensagem = err?.response?.data?.message || 'Erro ao cadastrar usuário';
+        this.toast.error(mensagem);
+        console.error('Erro ao cadastrar usuário:', mensagem);
+      }
+    },
+  },
 };
 </script>
