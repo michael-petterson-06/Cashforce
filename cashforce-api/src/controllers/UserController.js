@@ -1,7 +1,8 @@
-const { findAllUsers, createUser, updateUser, findUserById, deleteUser } = require('../services/UserService');
+const { findAllUsers, createUser, updateUser, findUserById, deleteUser, findUserByEmail } = require('../services/UserService');
 
 const UserController = {
   async findAll(req, res) {
+   
     try {
       const users = await findAllUsers();
       return res.status(200).json(users);
@@ -28,6 +29,7 @@ const UserController = {
   },
 
   async create(req, res) {
+
     try {
       const { name, email, phoneNumber, mobile, departament } = req.body;
 
@@ -35,7 +37,17 @@ const UserController = {
         return res.status(400).json({ message: 'Nome e email são obrigatórios' });
       }
 
-      const newUser = await createUser({ name, email, phoneNumber, mobile, departament });
+      const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isEmailValid) {
+        return res.status(400).json({ message: 'Email em formato inválido' });
+      }
+
+      const existingUser = await findUserByEmail(email);
+      if (existingUser) {
+        return res.status(409).json({ message: 'Este email já está cadastrado' });
+      }
+
+      const newUser = await createUser({ name: name?.toUpperCase(), email, phoneNumber, mobile, departament });
 
       return res.status(201).json(newUser);
     } catch (error) {
@@ -54,7 +66,7 @@ const UserController = {
       }
 
       const { name, email, phoneNumber, mobile, departament } = req.body;
-      const updated = await updateUser(id, { name, email, phoneNumber, mobile, departament });
+      const updated = await updateUser(id, { name: name?.toUpperCase(), email, phoneNumber, mobile, departament });
 
       return res.status(200).json({ message: 'Usuário atualizado com sucesso' });
     } catch (error) {

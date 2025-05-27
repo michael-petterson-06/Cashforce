@@ -23,5 +23,9 @@ async function deleteUser(id) {
   return await users.destroy({ where: { id } });
 }
 
+async function findUserByEmail(email) {
+  return await users.findOne({ where: { email } });
+}
 
-module.exports = { findAllUsers, createUser, updateUser, findUserById, deleteUser };
+
+module.exports = { findAllUsers, createUser, updateUser, findUserById, deleteUser, findUserByEmail };

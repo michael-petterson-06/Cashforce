@@ -23,27 +23,43 @@
 
         <div class="bg-white shadow rounded-lg overflow-x-auto">
           <div
-          class="hidden lg:grid grid-cols-6 px-6 py-3 text-xs font-bold uppercase"
-          style="color: #A1A8B8;"
-        >
-          <div v-for="(header, i) in tableHeaders" :key="i">{{ header }}</div>
-        </div>
+            class="hidden lg:grid px-6 py-3 text-xs font-bold uppercase"
+            :class="isUserRoute ? 'grid-cols-7' : 'grid-cols-6'"
+            style="color: #A1A8B8;"
+          >
+            <div v-for="(header, i) in tableHeaders" :key="i">{{ header }}</div>
+            <div v-if="isUserRoute">Ações</div>
+          </div>
 
-
-        <div class="space-y-3 mt-4" v-if="!loading">
-          <BaseRow
-            v-for="(item, index) in items"
-            :key="index"
-            :fields="mapFields(item)"
-            :actions="getActions(item)"
-          />
-        </div>
-        
-        <LoadingSpinner v-else />
-
+          <div class="space-y-3 mt-4" v-if="!loading">
+            <BaseRow
+              v-for="(item, index) in items"
+              :key="index"
+              :fields="mapFields(item)"
+              :actions="getActions(item)"
+              :showActions="isUserRoute"
+              @edit="handleEdit(item)"
+              @delete="handleDelete(item.id)"
+              @openMenu="handleOpenMenu(item)"
+            />
+          </div>
+          <LoadingSpinner v-else />
         </div>
       </div>
     </main>
+    <MoreActions
+      v-if="showMoreActions"
+      @close="showMoreActions = false"
+      @edit="handleEdit(selectedItem)"
+      @delete="handleDelete(selectedItem.id)"
+    />
+    <ConfirmDelete
+      v-if="showConfirmDelete"
+      :title="'Confirmar exclusão'"
+      :targetLabel="'este usuário'"
+      @confirm="confirmDelete"
+      @cancel="showConfirmDelete = false"
+    />
   </div>
 </template>
 
@@ -51,15 +67,20 @@
 import Sidebar from '../components/Sidebar.vue';
 import BaseRow from '../components/BaseRow.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
+import ConfirmDelete from '@/components/ConfirmDelete.vue';
+import MoreActions from '@/components/MoreActions.vue';
 import { getOrders } from '../services/orderService';
-import { getUsers } from '../services/userService';
+import { getUsers, deleteUser } from '../services/userService';
 
 export default {
-  components: { Sidebar, BaseRow, LoadingSpinner },
+  components: { Sidebar, BaseRow, LoadingSpinner, MoreActions, ConfirmDelete },
   data() {
     return {
       items: [],
       loading: false,
+      showMoreActions: false,
+      showConfirmDelete: false,
+      selectedItem: null,
     };
   },
   computed: {
@@ -116,7 +137,6 @@ export default {
         { label: 'Cedente', value: item.provider?.name },
         { label: 'Emissão', value: item.emissionDate, format: this.formatDate },
         { label: 'Valor', value: item.value, format: this.formatCurrency, class: 'text-brand-green' },
-        // { label: 'Status', value: item.statusDescription },
       ];
     },
     getActions(item) {
@@ -128,7 +148,30 @@ export default {
         };
       }
     },
-  },
-};
+    handleOpenMenu(item) {
+      this.selectedItem = item;
+      this.showMoreActions = true;
+    },
+    handleEdit(item) {
+      console.log('Editar usuário:', item);
+      this.showMoreActions = false;
+    },
+    handleDelete(id) {
+      this.selectedItemId = id;
+      this.showMoreActions = false;
+      this.showConfirmDelete = true;
+    },
+    async confirmDelete() {
+      try {
+        await deleteUser(this.selectedItemId);
+        this.items = await getUsers();
+      } catch (err) {
+        console.error('Erro ao deletar usuário:', err);
+      } finally {
+        this.showConfirmDelete = false;
+      }
+    }
+ },
 
+};
 </script>
