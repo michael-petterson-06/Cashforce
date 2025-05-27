@@ -7,6 +7,5 @@ export async function getOrders() {
 
 export async function getOrderById(id) {
   const response = await api.get(`/orders/${id}`);
-  console.log('response: ', response)
   return response.data;
 }

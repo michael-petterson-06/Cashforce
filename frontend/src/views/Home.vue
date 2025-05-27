@@ -23,24 +23,28 @@
 
         <div class="bg-white shadow rounded-lg overflow-x-auto">
           <div
-          class="hidden lg:grid grid-cols-6 px-6 py-3 text-xs font-bold uppercase"
-          style="color: #A1A8B8;"
-        >
-          <div v-for="(header, i) in tableHeaders" :key="i">{{ header }}</div>
-        </div>
+            class="hidden lg:grid px-6 py-3 text-xs font-bold uppercase"
+            :class="isUserRoute ? 'grid-cols-7' : 'grid-cols-6'"
+            style="color: #A1A8B8;"
+          >
+            <div v-for="(header, i) in tableHeaders" :key="i">{{ header }}</div>
+            <div v-if="isUserRoute">Ações</div>
+          </div>
 
-
-        <div class="space-y-3 mt-4" v-if="!loading">
-          <BaseRow
+          <div class="space-y-3 mt-4" v-if="!loading">
+            <BaseRow
             v-for="(item, index) in items"
-            :key="index"
-            :fields="mapFields(item)"
-            :actions="getActions(item)"
-          />
-        </div>
-        
-        <LoadingSpinner v-else />
+              :key="index"
+              :fields="mapFields(item)"
+              :actions="getActions(item)"
+              :showActions="isUserRoute"
+              @edit="handleEdit(item)"
+              @delete="handleDelete(item.id)"
+              @openMenu="handleOpenMenu(item)"
+            />
+          </div>
 
+          <LoadingSpinner v-else />
         </div>
       </div>
     </main>
@@ -116,7 +120,6 @@ export default {
         { label: 'Cedente', value: item.provider?.name },
         { label: 'Emissão', value: item.emissionDate, format: this.formatDate },
         { label: 'Valor', value: item.value, format: this.formatCurrency, class: 'text-brand-green' },
-        // { label: 'Status', value: item.statusDescription },
       ];
     },
     getActions(item) {
@@ -128,7 +131,12 @@ export default {
         };
       }
     },
+    handleEdit(item) {
+      console.log('Editar usuário:', item);
+    },
+    handleDelete(id) {
+      console.log('Deletar usuário ID:', id);
+    }
   },
 };
-
 </script>
