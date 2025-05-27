@@ -33,7 +33,7 @@
 
           <div class="space-y-3 mt-4" v-if="!loading">
             <BaseRow
-            v-for="(item, index) in items"
+              v-for="(item, index) in items"
               :key="index"
               :fields="mapFields(item)"
               :actions="getActions(item)"
@@ -43,11 +43,23 @@
               @openMenu="handleOpenMenu(item)"
             />
           </div>
-
           <LoadingSpinner v-else />
         </div>
       </div>
     </main>
+    <MoreActions
+      v-if="showMoreActions"
+      @close="showMoreActions = false"
+      @edit="handleEdit(selectedItem)"
+      @delete="handleDelete(selectedItem.id)"
+    />
+    <ConfirmDelete
+      v-if="showConfirmDelete"
+      :title="'Confirmar exclusão'"
+      :targetLabel="'este usuário'"
+      @confirm="confirmDelete"
+      @cancel="showConfirmDelete = false"
+    />
   </div>
 </template>
 
@@ -55,15 +67,20 @@
 import Sidebar from '../components/Sidebar.vue';
 import BaseRow from '../components/BaseRow.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
+import ConfirmDelete from '@/components/ConfirmDelete.vue';
+import MoreActions from '@/components/MoreActions.vue';
 import { getOrders } from '../services/orderService';
-import { getUsers } from '../services/userService';
+import { getUsers, deleteUser } from '../services/userService';
 
 export default {
-  components: { Sidebar, BaseRow, LoadingSpinner },
+  components: { Sidebar, BaseRow, LoadingSpinner, MoreActions, ConfirmDelete },
   data() {
     return {
       items: [],
       loading: false,
+      showMoreActions: false,
+      showConfirmDelete: false,
+      selectedItem: null,
     };
   },
   computed: {
@@ -131,12 +148,30 @@ export default {
         };
       }
     },
+    handleOpenMenu(item) {
+      this.selectedItem = item;
+      this.showMoreActions = true;
+    },
     handleEdit(item) {
       console.log('Editar usuário:', item);
+      this.showMoreActions = false;
     },
     handleDelete(id) {
-      console.log('Deletar usuário ID:', id);
+      this.selectedItemId = id;
+      this.showMoreActions = false;
+      this.showConfirmDelete = true;
+    },
+    async confirmDelete() {
+      try {
+        await deleteUser(this.selectedItemId);
+        this.items = await getUsers();
+      } catch (err) {
+        console.error('Erro ao deletar usuário:', err);
+      } finally {
+        this.showConfirmDelete = false;
+      }
     }
-  },
+ },
+
 };
 </script>
