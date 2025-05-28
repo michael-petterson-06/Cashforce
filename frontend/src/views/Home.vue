@@ -17,7 +17,17 @@
           </h1>
         </div>
 
-         <div class="bg-white shadow rounded-lg overflow-x-auto">
+        <!-- Filtro por nome -->
+        <div v-if="isUserRoute" class="mb-4 flex items-center gap-3">
+          <input
+            v-model="userFilter"
+            type="text"
+            placeholder="Buscar por nome..."
+            class="w-full max-w-xs px-4 py-2 text-sm border border-[#DFE2EB] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-green"
+          />
+        </div>
+
+        <div class="bg-white shadow rounded-lg overflow-x-auto">
           <div
             class="hidden lg:grid px-6 py-3 text-xs font-bold uppercase"
             :class="isUserRoute ? 'grid-cols-7' : 'grid-cols-6'"
@@ -32,13 +42,12 @@
               >
                 Cadastrar Usuário
               </button>
-           </div>
-
+            </div>
           </div>
 
           <div class="space-y-3 mt-4" v-if="!loading">
             <BaseRow
-              v-for="(item, index) in items"
+              v-for="(item, index) in filteredItems"
               :key="index"
               :fields="mapFields(item)"
               :actions="getActions(item)"
@@ -52,6 +61,7 @@
         </div>
       </div>
     </main>
+
     <MoreActions
       v-if="showMoreActions"
       @close="showMoreActions = false"
@@ -86,9 +96,8 @@ import { getOrders } from '../services/orderService';
 import { getUsers, deleteUser, createUser, updateUser } from '../services/userService';
 import { useToast } from 'vue-toastification';
 
-
 export default {
-  components: { Sidebar, BaseRow, LoadingSpinner, MoreActions, ConfirmDelete, UserFormModal, UserFormModal, },
+  components: { Sidebar, BaseRow, LoadingSpinner, MoreActions, ConfirmDelete, UserFormModal },
   data() {
     return {
       items: [],
@@ -98,7 +107,8 @@ export default {
       selectedItem: null,
       showUserFormModal: false,
       isEditMode: false,
-      selectedUser: null
+      selectedUser: null,
+      userFilter: '', // novo estado para filtro
     };
   },
   computed: {
@@ -109,6 +119,15 @@ export default {
       return this.isUserRoute
         ? ['Nota ID', 'Nome', 'Email', 'Telefone', 'Celular', 'Departamento']
         : ['Nota Fiscal', 'Sacado', 'Cedente', 'Emissão', 'Valor', 'Status'];
+    },
+    filteredItems() {
+      if (!this.isUserRoute || !this.userFilter.trim()) {
+        return this.items;
+      }
+      const filter = this.userFilter.toLowerCase();
+      return this.items.filter((item) =>
+        item.name.toLowerCase().includes(filter)
+      );
     },
   },
   async mounted() {
@@ -147,7 +166,7 @@ export default {
         return [
           { label: 'ID', value: item.id },
           { label: 'Nome', value: item.name },
-          { label: 'Email', value: item.email || '-', class: 'text-brand-green'  },
+          { label: 'Email', value: item.email || '-', class: 'text-brand-green' },
           { label: 'Telefone', value: item.phoneNumber || '-' },
           { label: 'Celular', value: item.mobile || '-' },
           { label: 'Departamento', value: item.departament || '-' },
@@ -175,8 +194,10 @@ export default {
       this.showMoreActions = true;
     },
     handleEdit(item) {
-      console.log('Editar usuário:', item);
+      this.selectedUser = item;
+      this.isEditMode = true;
       this.showMoreActions = false;
+      this.showUserFormModal = true;
     },
     handleDelete(id) {
       this.selectedItemId = id;
@@ -218,12 +239,6 @@ export default {
         console.error('Erro ao salvar usuário:', mensagem);
       }
     },
-    handleEdit(item) {
-      this.selectedUser = item;
-      this.isEditMode = true;
-      this.showMoreActions = false;
-      this.showUserFormModal = true;
-    }
   },
 };
 </script>
