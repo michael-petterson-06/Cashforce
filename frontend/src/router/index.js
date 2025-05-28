@@ -1,8 +1,9 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-import  TransferorDetails from '../views/ TransferorDetails.vue';
+import TransferorDetails from '../views/TransferorDetails.vue';
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',
@@ -13,9 +14,11 @@ const routes = [
     name: 'Users',
     component: Home,
   },
-  { path: '/cedente/:id',
-    name: ' TransferorDetails',
-    component:  TransferorDetails },
+  {
+    path: '/cedente/:id',
+    name: 'TransferorDetails',
+    component: TransferorDetails,
+  },
 ];
 
 const router = createRouter({

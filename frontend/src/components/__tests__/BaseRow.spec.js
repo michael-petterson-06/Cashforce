@@ -17,9 +17,18 @@ describe('BaseRow.vue', () => {
     buttonLabel: 'Dados do cedente'
   };
 
+  const globalMocks = {
+    global: {
+      mocks: {
+        $route: { path: '/' }
+      }
+    }
+  };
+
   it('deve renderizar corretamente todos os dados da nota fiscal', () => {
     const wrapper = mount(BaseRow, {
-      props: { fields: mockFields, actions: mockActions }
+      props: { fields: mockFields, actions: mockActions },
+      ...globalMocks
     });
 
     const texto = wrapper.text();
@@ -35,7 +44,8 @@ describe('BaseRow.vue', () => {
 
   it('deve aplicar estilo correto para status', () => {
     const wrapper = mount(BaseRow, {
-      props: { fields: mockFields, actions: mockActions }
+      props: { fields: mockFields, actions: mockActions },
+      ...globalMocks
     });
 
     const statusEl = wrapper.find('span.text-brand-green');
@@ -45,7 +55,8 @@ describe('BaseRow.vue', () => {
 
   it('deve renderizar o botão "Dados do cedente"', () => {
     const wrapper = mount(BaseRow, {
-      props: { fields: mockFields, actions: mockActions }
+      props: { fields: mockFields, actions: mockActions },
+      ...globalMocks
     });
 
     const botao = wrapper.find('button');
