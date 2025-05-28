@@ -1,17 +1,15 @@
 const { users } = require('../models');
 
 async function findAllUsers() {
-  const allUsers = await users.findAll();
-  return allUsers;
+  return await users.findAll();
 }
 
 async function findUserById(id) {
   return await users.findByPk(id);
 }
 
-
 async function createUser(data) {
-    return await users.create(data);
+  return await users.create(data);
 }
 
 async function updateUser(id, data) {
@@ -27,5 +25,11 @@ async function findUserByEmail(email) {
   return await users.findOne({ where: { email } });
 }
 
-
-module.exports = { findAllUsers, createUser, updateUser, findUserById, deleteUser, findUserByEmail };
+module.exports = {
+  findAllUsers,
+  createUser,
+  updateUser,
+  findUserById,
+  deleteUser,
+  findUserByEmail,
+};

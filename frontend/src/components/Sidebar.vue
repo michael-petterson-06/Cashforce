@@ -9,6 +9,7 @@
           <li>
             <router-link
               to="/"
+              data-testid="notas-button"
               class="flex items-center relative pl-4 py-2 text-brand-green font-semibold"
               :class="{ 'sidebar-active': isNotasRoute }"
             >

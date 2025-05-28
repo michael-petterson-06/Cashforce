@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend/src/router/index.js</title>
+    <title>Code coverage report for frontend/src/components/MoreActions.vue</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/router</a> index.js</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/components</a> MoreActions.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/26</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/26</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -92,65 +92,74 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/router/index.js
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
-import TransferorDetails from '../views/TransferorDetails.vue';
-&nbsp;
-export const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-  },
-  {
-    path: '/usuarios',
-    name: 'Users',
-    component: Home,
-  },
-  {
-    path: '/cedente/:id',
-    name: 'TransferorDetails',
-    component: TransferorDetails,
-  },
-];
-&nbsp;
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
-&nbsp;
-export default router;
-&nbsp;</pre></td></tr></table></pre>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
+    &lt;div
+      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"
+      @click.self="$emit('close')"
+    &gt;
+      &lt;div class="bg-white rounded-xl p-6 w-80 shadow-lg"&gt;
+        &lt;h2 class="text-lg font-bold mb-4 text-gray-800"&gt;More Actions&lt;/h2&gt;
+  
+        &lt;button
+          class="w-full flex items-center gap-2 text-left px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition"
+          @click="$emit('edit')"
+        &gt;
+          &lt;img src="/Pencil.svg" alt="Editar" class="w-4 h-4" /&gt;
+          Editar
+        &lt;/button&gt;
+  
+        &lt;button
+          class="w-full flex items-center gap-2 text-left px-4 py-2 mt-2 rounded-lg text-red-600 hover:bg-red-100 transition"
+          @click="$emit('delete')"
+        &gt;
+          &lt;img src="/Trash.svg" alt="Deletar" class="w-4 h-4" /&gt;
+          Deletar
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+  
+  &lt;script&gt;
+  export default {
+    emits: ['close', 'edit', 'delete'],
+  };
+  &lt;/script&gt;
+  </pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
