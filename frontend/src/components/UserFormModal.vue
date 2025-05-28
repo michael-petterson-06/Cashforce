@@ -4,14 +4,16 @@
       @click.self="$emit('close')"
     >
       <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
-        <h2 class="text-lg font-bold mb-4 text-gray-800">Cadastrar Usuário</h2>
+        <h2 class="text-lg font-bold mb-4 text-gray-800">
+          {{ isEditMode ? 'Editar Usuário' : 'Cadastrar Usuário' }}
+        </h2>
         <form @submit.prevent="$emit('submit', form)">
           <div class="grid gap-3">
-            <input v-model="form.name" type="text" placeholder="Nome" class="input" required />
-            <input v-model="form.email" type="email" placeholder="E-mail" class="input" required />
-            <input v-model="form.phoneNumber" type="text" placeholder="Telefone" class="input" />
-            <input v-model="form.mobile" type="text" placeholder="Celular" class="input" />
-            <input v-model="form.departament" type="text" placeholder="Departamento" class="input" />
+            <input v-model="form.name" type="text" placeholder="Nome" class="input" maxlength="24" required />
+            <input v-model="form.email" type="email" placeholder="E-mail" class="input" maxlength="24" required />
+            <input v-model="form.phoneNumber" type="text" placeholder="Telefone" class="input" maxlength="10" />
+            <input v-model="form.mobile" type="text" placeholder="Celular" class="input" maxlength="10"/>
+            <input v-model="form.departament" type="text" placeholder="Departamento" class="input" maxlength="10"/>
           </div>
   
           <div class="flex justify-end gap-3 mt-5">
@@ -29,6 +31,10 @@
   
   <script>
   export default {
+    props: {
+      initialData: Object,
+      isEditMode: Boolean,
+    },
     emits: ['close', 'submit'],
     data() {
       return {
@@ -40,6 +46,11 @@
           departament: '',
         },
       };
+    },
+    mounted() {
+      if (this.initialData) {
+        this.form = { ...this.initialData };
+      }
     },
   };
   </script>

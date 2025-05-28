@@ -67,6 +67,8 @@
     />
     <UserFormModal
       v-if="showUserFormModal"
+      :initialData="selectedUser"
+      :isEditMode="isEditMode"
       @close="showUserFormModal = false"
       @submit="handleSubmitUserForm"
     />
@@ -81,7 +83,7 @@ import UserFormModal from '../components/UserFormModal.vue';
 import MoreActions from '../components/MoreActions.vue';
 import ConfirmDelete from '../components/ConfirmDelete.vue';
 import { getOrders } from '../services/orderService';
-import { getUsers, deleteUser, createUser } from '../services/userService';
+import { getUsers, deleteUser, createUser, updateUser } from '../services/userService';
 import { useToast } from 'vue-toastification';
 
 
@@ -95,6 +97,8 @@ export default {
       showConfirmDelete: false,
       selectedItem: null,
       showUserFormModal: false,
+      isEditMode: false,
+      selectedUser: null
     };
   },
   computed: {
@@ -192,20 +196,34 @@ export default {
       }
     },
     handleOpenUserForm() {
+      this.selectedUser = null;
+      this.isEditMode = false;
       this.showUserFormModal = true;
     },
     async handleSubmitUserForm(formData) {
       try {
-        await createUser(formData);
+        if (this.isEditMode) {
+          await updateUser(formData.id, formData);
+          this.toast.success('Usuário atualizado com sucesso!');
+        } else {
+          await createUser(formData);
+          this.toast.success('Usuário cadastrado com sucesso!');
+        }
+
         this.showUserFormModal = false;
         this.items = await getUsers();
-        this.toast.success('Usuário cadastrado com sucesso!');
       } catch (err) {
-        const mensagem = err?.response?.data?.message || 'Erro ao cadastrar usuário';
+        const mensagem = err?.response?.data?.message || 'Erro ao salvar usuário';
         this.toast.error(mensagem);
-        console.error('Erro ao cadastrar usuário:', mensagem);
+        console.error('Erro ao salvar usuário:', mensagem);
       }
     },
+    handleEdit(item) {
+      this.selectedUser = item;
+      this.isEditMode = true;
+      this.showMoreActions = false;
+      this.showUserFormModal = true;
+    }
   },
 };
 </script>

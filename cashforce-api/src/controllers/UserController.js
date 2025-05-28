@@ -64,10 +64,21 @@ const UserController = {
       if (!existingUser) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
-
+      
       const { name, email, phoneNumber, mobile, departament } = req.body;
-      const updated = await updateUser(id, { name: name?.toUpperCase(), email, phoneNumber, mobile, departament });
 
+      const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isEmailValid) {
+        return res.status(400).json({ message: 'Email em formato inválido' });
+      }
+
+      const userWithEmail = await findUserByEmail(email);
+      if (userWithEmail && userWithEmail.id !== Number(id)) {
+        return res.status(409).json({ message: 'Este e-mail já está em uso por outro usuário.' });
+      }
+      
+      await updateUser(id, { name: name?.toUpperCase(), email, phoneNumber, mobile, departament });
+      
       return res.status(200).json({ message: 'Usuário atualizado com sucesso' });
     } catch (error) {
       console.log('[UserController] Erro ao atualizar usuário:', error?.message || error);
