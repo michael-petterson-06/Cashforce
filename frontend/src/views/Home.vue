@@ -16,8 +16,7 @@
             {{ isUserRoute ? 'Usuários' : 'Notas fiscais' }}
           </h1>
         </div>
-
-        <!-- Filtro por nome -->
+ 
         <div v-if="isUserRoute" class="mb-4 flex items-center gap-3">
           <input
             v-model="userFilter"
@@ -47,7 +46,7 @@
 
           <div class="space-y-3 mt-4" v-if="!loading">
             <BaseRow
-              v-for="(item, index) in filteredItems"
+              v-for="(item, index) in paginatedItems"
               :key="index"
               :fields="mapFields(item)"
               :actions="getActions(item)"
@@ -59,6 +58,32 @@
           </div>
           <LoadingSpinner v-else />
         </div>
+    
+        <div
+          v-if="isUserRoute && filteredItems.length > itemsPerPage"
+          class="flex justify-center mt-4 gap-2"
+        >
+          <button
+            class="px-4 py-2 text-sm font-medium text-white bg-brand-green rounded-full hover:bg-emerald-700 transition disabled:opacity-50"
+            :disabled="currentPage === 1"
+            @click="currentPage--"
+          >
+            Anterior
+          </button>
+
+          <span class="px-4 py-2 text-sm text-gray-700 flex items-center">
+            Página {{ currentPage }} de {{ totalPages }}
+          </span>
+
+          <button
+            class="px-4 py-2 text-sm font-medium text-white bg-brand-green rounded-full hover:bg-emerald-700 transition disabled:opacity-50"
+            :disabled="currentPage === totalPages"
+            @click="currentPage++"
+          >
+            Próxima
+          </button>
+        </div>
+
       </div>
     </main>
 
@@ -108,7 +133,9 @@ export default {
       showUserFormModal: false,
       isEditMode: false,
       selectedUser: null,
-      userFilter: '', // novo estado para filtro
+      userFilter: '',
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   },
   computed: {
@@ -129,14 +156,27 @@ export default {
         item.name.toLowerCase().includes(filter)
       );
     },
+    paginatedItems() {
+      if (!this.isUserRoute) return this.items;
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.filteredItems.slice(start, end);
+    },
+    totalPages() {
+      return Math.ceil(this.filteredItems.length / this.itemsPerPage);
+    },
   },
   async mounted() {
     await this.loadData();
   },
   watch: {
+    userFilter() {
+      this.currentPage = 1;
+    },
     $route: {
       immediate: false,
       handler() {
+        this.currentPage = 1;
         this.loadData();
       },
     },
