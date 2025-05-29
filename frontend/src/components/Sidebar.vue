@@ -1,7 +1,7 @@
 <template>
-  <aside class="w-60 h-full bg-white relative hidden md:block">
-    <div class="absolute top-0 -right-[0px] w-[24px] h-full bg-transparent z-0" style="box-shadow: 5px 0 20px rgba(0, 0, 0, 0.06);"></div>
-
+   <aside class="w-60 h-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 relative hidden md:block transition-colors">
+    <div class="absolute top-0 -right-[0px] w-[24px] h-screen bg-transparent z-0" style="box-shadow: 5px 0 20px rgba(0, 0, 0, 0.06);"></div>
+    
     <div class="px-6 py-4 relative z-20">
       <img src="/Logo.svg" alt="Cashforce Logo" class="h-6 mb-6" />
       <nav class="pt-[35px]">

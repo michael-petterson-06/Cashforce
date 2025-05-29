@@ -1,16 +1,16 @@
 <template>
-  <div class="flex h-screen bg-white">
+  <div class="flex h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors">
     <Sidebar class="hidden md:block" />
 
-    <main class="flex-1 bg-white p-6 md:px-16 pt-[40px]">
+    <main class="flex-1 bg-white dark:bg-gray-900 p-6 md:px-16 pt-[40px] transition-colors">
       <div class="block md:hidden mb-4">
         <img src="/Logo.svg" alt="Cashforce Logo" class="h-6" />
       </div>
 
       <div class="flex items-center justify-between mb-6">
         <div>
-          <h1 class="text-2xl font-bold text-gray-800">Dados do Cedente</h1>
-          <p class="text-gray-500">Informações completas do cedente vinculado à nota fiscal.</p>
+          <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Dados do Cedente</h1>
+          <p class="text-gray-500 dark:text-gray-300">Informações completas do cedente vinculado à nota fiscal.</p>
         </div>
         <button
           @click="$router.push('/')"
@@ -22,7 +22,7 @@
 
       <div
         v-if="cedente"
-        class="bg-white shadow rounded-lg border border-[#DFE2EB] p-6 space-y-2 text-sm text-gray-700 animate-fade-in"
+        class="bg-white dark:bg-gray-800 shadow rounded-lg border border-[#DFE2EB] dark:border-gray-700 p-6 space-y-2 text-sm text-gray-700 dark:text-gray-100 animate-fade-in transition-colors"
       >
         <div><strong>ID:</strong> {{ cedente.id }}</div>
         <div><strong>Nome:</strong> {{ cedente.name || '-' }}</div>
