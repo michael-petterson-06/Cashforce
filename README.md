@@ -23,6 +23,7 @@ Este projeto é uma aplicação fullstack desenvolvida como parte de um desafio 
 - Documentação da API com Swagger
 - Testes com Jest e Supertest
 - Cobertura completa dos principais fluxos da API
+- CRUD completo de usuários**
 
 ### ✅ Frontend (Vue.js + Vite)
 
@@ -38,6 +39,14 @@ Este projeto é uma aplicação fullstack desenvolvida como parte de um desafio 
 - Estilização com Tailwind CSS
 - Testes com Vitest + Vue Test Utils
 - Alta cobertura dos componentes principais
+- Tema claro e tema escuro
+- Paginação
+- Filtro por nome de usuário
+- Gerenciamento de usuários
+  - listagem de usuários
+  - Criando registro do usuário
+  - Atualizando registro do usuário
+  - Deletando registro do usuário
 
 ---
 
@@ -80,7 +89,7 @@ A aplicação estará disponível em `http://localhost:5173`.
 Caso deseje rodar o projeto localmente, lembre-se de alternar entre o backend local e remoto no seguinte arquivo do Frontend:
 
 ```js
-// src/services/orderService.js
+// src/services/api.js
 ```
 
 #### 🔁 Troque esta linha:
@@ -101,23 +110,45 @@ const API_URL = 'http://localhost:3000';
 
 ### Backend
 
+```bash
+yarn test:coverage
+
+# ou
+
+test:watch
+
 - Testes com Jest e Supertest
 - Testes de `/orders` com verificação de status e mapeamento
+- Testes de `/users` com verificação de status e mapeament
 - Cobertura alta dos casos de sucesso e falha
+
+#### Rodar testes com cobertura:
+
+```bash
+yarn test:coverage
+
+# ou
+
+test:watch
+```
+### 🧪 Cobertura de Testes
+
+![Cobertura Backend](/frontend/src/assets/cobertura-test-back.png)
 
 ### Frontend
 
-- Testes unitários e de integração
-- `OrderRow.vue`, `Home.vue`, `Sidebar.vue`
-- Cobertura atual superior a **69%**
-
 ```bash
-yarn test
-# ou
 yarn test:unit
-yarn test:unit2 # com coverage
-```
 
+yarn test:unit2 # com coverage
+
+- Testes unitários e de integração
+- `OrderRow.vue`, `Home.vue`, `Sidebar.vue`, `BaseRow.vue`, `TransferorDetails.vue`.
+
+```
+### 🧪 Cobertura de Testes
+
+![Cobertura Frontend](/frontend/src/assets/cobertura-test-front.png)
 ---
 
 ## 📄 Swagger
@@ -129,8 +160,6 @@ http://localhost:3000/api-docs
 
 https://cashforce-production.up.railway.app/api-docs/
 ```
-
----
 
 ## 🖼️ Imagens
 
