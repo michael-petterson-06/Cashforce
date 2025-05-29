@@ -1,33 +1,51 @@
 <template>
-    <div
-      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"
-      @click.self="$emit('close')"
-    >
-      <div class="bg-white rounded-xl p-6 w-80 shadow-lg">
-        <h2 class="text-lg font-bold mb-4 text-gray-800">More Actions</h2>
-  
+  <div
+    class="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center"
+    @click.self="$emit('close')"
+  >
+    <div class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg p-4 w-64 animate-fade-in transition-colors">
+      <h3 class="text-md font-bold mb-4">Ações</h3>
+      <div class="space-y-2">
         <button
-          class="w-full flex items-center gap-2 text-left px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition"
+          class="w-full text-left px-4 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center gap-2"
           @click="$emit('edit')"
         >
-          <img src="/Pencil.svg" alt="Editar" class="w-4 h-4" />
-          Editar
+        ✏️  Editar
         </button>
-  
         <button
-          class="w-full flex items-center gap-2 text-left px-4 py-2 mt-2 rounded-lg text-red-600 hover:bg-red-100 transition"
+          class="w-full text-left px-4 py-2 text-sm rounded-md text-red-600 hover:bg-red-50 dark:hover:bg-red-900 dark:text-red-400 transition flex items-center gap-2"
           @click="$emit('delete')"
         >
-          <img src="/Trash.svg" alt="Deletar" class="w-4 h-4" />
-          Deletar
+        🗑️
+          Apagar
+        </button>
+        <button
+          class="w-full text-left px-4 py-2 text-sm rounded-md text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+          @click="$emit('close')"
+        >
+          Cancelar
         </button>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    emits: ['close', 'edit', 'delete'],
-  };
-  </script>
-  
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped>
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+</style>

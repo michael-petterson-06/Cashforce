@@ -1,5 +1,6 @@
 <template>
-    <div class="flex items-center gap-2 text-gray-400 text-sm px-6 py-4 animate-fade-in">
+  
+      <div class="flex items-center gap-2 text-gray-400 dark:text-gray-300 text-sm px-6 py-4 animate-fade-in">
       <svg
         class="animate-spin h-5 w-5 text-gray-400"
         xmlns="http://www.w3.org/2000/svg"

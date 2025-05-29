@@ -1,32 +1,32 @@
 <template>
-  <div class="flex h-screen bg-white">
+  <div class="flex min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors">
     <Sidebar class="hidden md:block" />
-    <main class="flex-1 bg-white">
+    <main class="flex-1 bg-white dark:bg-gray-900 transition-colors">
       <div class="block md:hidden px-6 pt-6">
         <img src="/Logo.svg" alt="Cashforce Logo" class="h-6 mb-4" />
       </div>
       <div class="pt-16">
-        <div class="h-[1px] w-full" style="background-color: #DFE2EB;"></div>
+        <div class="h-[1px] w-full bg-[#DFE2EB] dark:bg-gray-700"></div>
       </div>
 
       <div class="px-4 md:px-16 pt-[42px]">
         <div class="flex items-center gap-2 mb-1">
           <img src="/Vector-2.svg" alt="Ícone" class="w-5 h-5" />
-          <h1 class="text-2xl font-bold text-gray-800">
+          <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
             {{ isUserRoute ? 'Usuários' : 'Notas fiscais' }}
           </h1>
         </div>
- 
+
         <div v-if="isUserRoute" class="mb-4 flex items-center gap-3">
           <input
             v-model="userFilter"
             type="text"
             placeholder="Buscar por nome..."
-            class="w-full max-w-xs px-4 py-2 text-sm border border-[#DFE2EB] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-green"
+            class="w-full max-w-xs px-4 py-2 text-sm border border-[#DFE2EB] dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-green"
           />
         </div>
 
-        <div class="bg-white shadow rounded-lg overflow-x-auto">
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-x-auto transition-colors">
           <div
             class="hidden lg:grid px-6 py-3 text-xs font-bold uppercase"
             :class="isUserRoute ? 'grid-cols-7' : 'grid-cols-6'"
@@ -58,11 +58,12 @@
           </div>
           <LoadingSpinner v-else />
         </div>
-    
+
         <div
           v-if="isUserRoute && filteredItems.length > itemsPerPage"
-          class="flex justify-center mt-4 gap-2"
+          class="flex justify-center mt-4 gap-2 bg-white dark:bg-gray-900 transition-colors px-4 py-4"
         >
+
           <button
             class="px-4 py-2 text-sm font-medium text-white bg-brand-green rounded-full hover:bg-emerald-700 transition disabled:opacity-50"
             :disabled="currentPage === 1"
@@ -71,7 +72,7 @@
             Anterior
           </button>
 
-          <span class="px-4 py-2 text-sm text-gray-700 flex items-center">
+          <span class="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 flex items-center">
             Página {{ currentPage }} de {{ totalPages }}
           </span>
 
@@ -83,7 +84,6 @@
             Próxima
           </button>
         </div>
-
       </div>
     </main>
 
